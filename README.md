@@ -1,7 +1,3 @@
-# 48h-Hackathon-Noise-alert-device
-代码到实物课程的黑客松项目
-
-
 # 项目简介：静音小卫 —— 桌面噪音提醒装置
 
 

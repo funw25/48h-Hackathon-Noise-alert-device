@@ -1,0 +1,1205 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>静音小卫 | 最终硬件黑客松项目展示</title>
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet"/>
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+    
+}
+
+body{  
+    background:
+        radial-gradient(circle at 20% 30%, rgba(37,99,235,0.08), transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(14,165,233,0.08), transparent 50%),
+        #020617;
+    color:#e2e8f0;
+    font-family:
+        Inter,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+    overflow-x:hidden;
+}
+
+/* ========================= */
+.container{
+    width:min(1220px,92%);
+    margin:auto;
+}
+
+section{
+    margin-bottom:140px;
+}
+
+.section-mini{
+    color:#60a5fa;
+    font-size:0.85rem;
+    letter-spacing:0.22em;
+    text-transform:uppercase;
+    margin-bottom:18px;
+}
+
+.section-title{
+    font-size:3rem;
+    line-height:1.05;
+    letter-spacing:-0.06em;
+    font-weight:900;
+    margin-bottom:24px;
+}
+
+.section-desc{
+    color:#94a3b8;
+    line-height:1.95;
+    max-width:820px;
+}
+
+/* ========================= */
+.glass{
+    background:rgba(15,23,42,0.6);
+    backdrop-filter:blur(14px);
+    border:1px solid rgba(255,255,255,0.06);
+    border-radius:30px;
+}
+
+.card{
+    background:rgba(15,23,42,0.68);
+    border:1px solid rgba(255,255,255,0.05);
+    border-radius:28px;
+    transition:0.35s;
+}
+
+.card:hover{
+    transform:translateY(-8px);
+    border-color:rgba(96,165,250,0.25);
+    box-shadow:0 28px 60px rgba(0,0,0,0.4);
+}
+
+/* ========================= hero */
+.hero{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    position:relative;
+    overflow:hidden;
+}
+
+.hero::before{
+    content:"";
+    position:absolute;
+    width:700px;
+    height:700px;
+    top:-250px;
+    right:-120px;
+    background:radial-gradient(circle,#60a5fa15,transparent 70%);
+    pointer-events:none;
+}
+
+.hero-grid{
+    display:grid;
+    grid-template-columns:1.1fr 0.9fr;
+    gap:70px;
+    align-items:center;
+    position:relative;
+    z-index:2;
+}
+
+.hero h1{
+    font-size:6rem;
+    line-height:0.92;
+    letter-spacing:-0.09em;
+    font-weight:900;
+    margin-bottom:30px;
+}
+
+.hero p{
+    color:#94a3b8;
+    line-height:2;
+    font-size:1.1rem;
+    max-width:680px;
+    margin-bottom:34px;
+}
+
+.tag-wrap{
+    display:flex;
+    flex-wrap:nowrap;
+    gap:14px;
+    overflow-x:auto;
+}
+
+.tag{
+    padding:12px 20px;
+    border-radius:999px;
+    background:#0f172a;
+    border:1px solid rgba(96,165,250,0.18);
+    color:#cbd5e1;
+    font-size:0.9rem;
+    white-space:nowrap;
+}
+
+.hero-device{
+    height:560px;
+    border-radius:36px;
+    background:linear-gradient(145deg,#0f172a,#111827);
+    border:1px solid rgba(255,255,255,0.06);
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    position:relative;
+    overflow:hidden;
+}
+
+.hero-device::before{
+    content:"";
+    position:absolute;
+    width:340px;
+    height:340px;
+    border-radius:50%;
+    background:radial-gradient(circle,#60a5fa25,transparent 70%);
+}
+
+.device-core{
+    width:190px;
+    height:190px;
+    border-radius:50%;
+    background:#0f172a;
+    border:1px solid rgba(255,255,255,0.08);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:4.5rem;
+    box-shadow:0 0 60px rgba(96,165,250,0.25), inset 0 0 40px rgba(96,165,250,0.15);
+    margin-bottom:34px;
+    position:relative;
+    z-index:2;
+}
+
+.device-info{
+    text-align:center;
+    position:relative;
+    z-index:2;
+}
+
+.device-info h3{
+    font-size:1.5rem;
+    margin-bottom:12px;
+}
+
+.device-info p{
+    color:#94a3b8;
+    line-height:1.9;
+}
+
+/* 悬浮卡片 */
+.floating-card {
+    width: 90%;
+    max-width: 800px;
+    margin: 40px auto 240px auto;
+    padding: 32px 28px;
+    background: rgba(15, 23, 42, 0.7);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(96, 165, 250, 0.2);
+    border-radius: 48px;
+    text-align: center;
+    transition: all 0.35s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    cursor: default;
+}
+
+.floating-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    background: rgba(15, 23, 42, 0.85);
+    border-color: rgba(96, 165, 250, 0.5);
+    box-shadow: 0 25px 40px rgba(0, 0, 0, 0.5), 0 0 0 2px rgba(96, 165, 250, 0.1);
+}
+
+.floating-card h3 {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #cbd5e1;
+    margin-bottom: 10px;
+    letter-spacing: 0.02em;
+}
+
+.floating-card .quote-text {
+    font-size: 1.2rem;
+    font-weight: 400;
+    line-height: 1.6;
+    color: #e2e8f0;
+}
+
+.floating-card .quote-author {
+    margin-top: 14px;
+    font-size: 0.85rem;
+    color: #60a5fa;
+    opacity: 0.8;
+}
+
+/* grids */
+.grid-2{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:30px;
+}
+
+.grid-3{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:30px;
+}
+
+.grid-4{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:24px;
+}
+
+.problem-card{
+    padding:38px;
+}
+
+.problem-card i{
+    font-size:2rem;
+    color:#60a5fa;
+    margin-bottom:18px;
+}
+
+.problem-card h3{
+    margin-bottom:14px;
+}
+
+.problem-card p{
+    color:#94a3b8;
+    line-height:1.9;
+}
+
+/* flow */
+.flow-card{
+    padding:42px;
+}
+
+.flow-card h3{
+    margin-bottom:28px;
+    font-size:1.5rem;
+}
+
+.flow-step{
+    display:flex;
+    align-items:center;
+    margin-bottom:24px;
+}
+
+.step-circle{
+    width:50px;
+    height:50px;
+    border-radius:50%;
+    background:#0f172a;
+    border:1px solid rgba(96,165,250,0.22);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin-right:18px;
+    color:#60a5fa;
+    font-weight:700;
+}
+
+.step-text{
+    color:#cbd5e1;
+    line-height:1.8;
+}
+
+/* timeline */
+.timeline{
+    margin-top:60px;
+    position:relative;
+    padding-left:42px;
+}
+
+.timeline::before{
+    content:"";
+    position:absolute;
+    left:8px;
+    top:0;
+    bottom:0;
+    width:2px;
+    background:rgba(96,165,250,0.2);
+}
+
+.timeline-item{
+    position:relative;
+    margin-bottom:54px;
+}
+
+.timeline-dot{
+    position:absolute;
+    left:-42px;
+    top:6px;
+    width:18px;
+    height:18px;
+    border-radius:50%;
+    background:#60a5fa;
+    box-shadow:0 0 18px rgba(96,165,250,0.5);
+}
+
+.timeline-item h3{
+    margin-bottom:12px;
+}
+
+.timeline-item p{
+    color:#94a3b8;
+    line-height:1.95;
+}
+
+/* 图片画廊样式 */
+.image-gallery {
+    background: rgba(2, 6, 23, 0.5);
+    border-radius: 32px;
+    padding: 20px;
+    margin: 24px 0 16px 0;
+    border: 1px solid rgba(96,165,250,0.15);
+}
+
+.gallery-main {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    background: #020617;
+    border-radius: 28px;
+    overflow: hidden;
+    min-height: 260px;
+}
+
+.gallery-main-img {
+    width: 100%;
+    max-height: 460px;
+    object-fit: contain;
+    border-radius: 24px;
+    transition: 0.2s;
+}
+
+.gallery-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(8px);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #cbd5e1;
+    font-size: 1.8rem;
+    transition: 0.2s;
+    z-index: 5;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.gallery-arrow:hover {
+    background: #2563eb;
+    color: white;
+}
+
+.gallery-arrow.left {
+    left: 16px;
+}
+
+.gallery-arrow.right {
+    right: 16px;
+}
+
+.thumbnail-scroll {
+    display: flex;
+    gap: 14px;
+    overflow-x: auto;
+    padding: 8px 4px 12px 4px;
+    scrollbar-width: thin;
+    justify-content: center;
+    flex-wrap: nowrap;
+}
+
+.thumbnail {
+    width: 85px;
+    height: 85px;
+    object-fit: cover;
+    border-radius: 18px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: 0.2s;
+    opacity: 0.7;
+    flex-shrink: 0;
+}
+
+.thumbnail.active {
+    border-color: #60a5fa;
+    opacity: 1;
+    transform: scale(1.02);
+}
+
+.thumbnail:hover {
+    opacity: 1;
+    border-color: #60a5fa80;
+}
+
+.gallery-caption {
+    text-align: center;
+    margin-top: 12px;
+    font-size: 0.8rem;
+    color: #94a3b8;
+    letter-spacing: 0.3px;
+}
+
+/* 视频区域 */
+.media-video {
+    margin-top: 26px;
+}
+
+.video-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(37, 99, 235, 0.18);
+    backdrop-filter: blur(4px);
+    padding: 6px 16px;
+    border-radius: 60px;
+    font-size: 0.8rem;
+    letter-spacing: 0.02em;
+    color: #93c5fd;
+    margin-bottom: 14px;
+    font-weight: 500;
+}
+
+.media-video video {
+    width: 100%;
+    border-radius: 28px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: #020617;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.4);
+    max-height: 420px;
+}
+
+/* 可折叠元器件清单 + 项目设计卡 */
+.doc-collapsible {
+    margin-top: 32px;
+    background: rgba(2, 6, 23, 0.5);
+    border-radius: 28px;
+    border: 1px solid rgba(96, 165, 250, 0.2);
+}
+
+.doc-collapsible summary {
+    padding: 20px 24px;
+    font-weight: 600;
+    cursor: pointer;
+    color: #bfdbfe;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-radius: 28px;
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(4px);
+    list-style: none;
+}
+
+.doc-collapsible summary::-webkit-details-marker {
+    display: none;
+}
+
+.doc-collapsible summary i {
+    font-size: 1.4rem;
+    color: #60a5fa;
+}
+
+.doc-collapsible summary:hover {
+    background: rgba(37, 99, 235, 0.2);
+}
+
+.doc-content {
+    padding: 20px 24px 28px;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    overflow-x: auto;
+}
+
+.parts-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+    color: #e2e8f0;
+}
+
+.parts-table th {
+    background: #0f172a;
+    padding: 14px 12px;
+    text-align: left;
+    color: #93c5fd;
+}
+
+.parts-table td {
+    padding: 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    color: #cbd5e1;
+}
+
+.doc-download {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 20px;
+    padding: 8px 18px;
+    background: #1e293b;
+    border-radius: 60px;
+    color: #94a3b8;
+    text-decoration: none;
+    font-size: 0.8rem;
+}
+
+.doc-download:hover {
+    background: #2563eb20;
+    color: #bfdbfe;
+}
+
+/* prototype evolution */
+.proto-card .gallery-main {
+    min-height: 220px;
+}
+.proto-card .thumbnail {
+    width: 70px;
+    height: 70px;
+}
+
+.proto-wrap{
+    display:flex;
+    flex-direction:column;
+    gap:34px;
+    margin-top:60px;
+}
+
+.proto-card{
+    display:grid;
+    grid-template-columns:0.85fr 1.15fr;
+    gap:40px;
+    padding:38px;
+}
+
+.proto-image{
+    height:240px;
+    border-radius:24px;
+    background:linear-gradient(145deg,#0f172a,#111827);
+    border:1px solid rgba(255,255,255,0.05);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#64748b;
+    overflow:hidden;
+}
+
+.proto-image img {
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    border-radius:24px;
+}
+
+.proto-content h3{
+    margin:18px 0 14px;
+}
+
+.proto-content p{
+    color:#94a3b8;
+    line-height:1.95;
+}
+
+.proto-tag{
+    display:inline-block;
+    padding:8px 16px;
+    border-radius:999px;
+    background:#172554;
+    color:#bfdbfe;
+    font-size:0.85rem;
+}
+
+.demo-box{
+    height:280px;
+    border-radius:28px;
+    background:linear-gradient(145deg,#0f172a,#111827);
+    border:1px solid rgba(255,255,255,0.05);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#64748b;
+    overflow:hidden;
+}
+
+.demo-box img {
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    border-radius:28px;
+}
+
+/* 完整代码区域 */
+.code-box{
+    background:#0f172a;
+    border:1px solid rgba(96,165,250,0.18);
+    border-radius:22px;
+    padding:28px;
+    overflow:auto;
+    margin-top:26px;
+    font-family: Consolas, Monaco, 'Courier New', monospace;
+    font-size:13px;
+    line-height:1.6;
+    white-space: pre-wrap;
+    box-shadow:0 0 20px rgba(0,0,0,0.3), inset 0 0 20px rgba(96,165,250,0.05);
+}
+
+.code-box pre {
+    margin:0;
+    color:#e2e8f0;
+}
+
+.code-comment { color:#6b8cae; font-style:italic; }
+.code-keyword { color:#c084fc; font-weight:600; }
+.code-type { color:#38bdf8; }
+.code-number { color:#f59e0b; }
+.code-function { color:#22c55e; }
+.code-string { color:#fb7185; }
+.code-const { color:#facc15; }
+
+.reflection{
+    padding:38px;
+}
+
+.reflection h3{
+    margin-bottom:16px;
+}
+
+.reflection p{
+    color:#94a3b8;
+    line-height:1.95;
+}
+
+.end-page{
+    min-height:80vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    position:relative;
+}
+
+.end-page::before{
+    content:"";
+    position:absolute;
+    width:700px;
+    height:700px;
+    background:radial-gradient(circle,#60a5fa15,transparent 70%);
+}
+
+.end-content{
+    position:relative;
+    z-index:2;
+}
+
+.end-content h2{
+    font-size:5rem;
+    line-height:1;
+    letter-spacing:-0.08em;
+    margin-bottom:30px;
+}
+
+.end-content p{
+    color:#94a3b8;
+    line-height:2;
+    max-width:760px;
+    margin:auto auto 40px;
+}
+
+.end-button{
+    display:inline-flex;
+    align-items:center;
+    gap:12px;
+    padding:16px 28px;
+    border-radius:999px;
+    background:#2563eb;
+    color:white;
+    text-decoration:none;
+    transition:0.3s;
+}
+
+.end-button:hover{
+    transform:translateY(-4px);
+    box-shadow:0 16px 40px rgba(37,99,235,0.35);
+}
+
+.footer{
+    padding:80px 0 60px;
+    text-align:center;
+    color:#64748b;
+    border-top:1px solid rgba(255,255,255,0.05);
+}
+
+/* 新增耗材归还板块样式 */
+.return-card {
+    padding: 32px 28px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+}
+.return-image {
+    max-width: 520px;
+    width: 100%;
+    border-radius: 32px;
+    overflow: hidden;
+    background: #0f172a;
+    border: 1px solid rgba(96,165,250,0.3);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.return-image:hover {
+    transform: scale(1.01);
+    box-shadow: 0 20px 35px rgba(0,0,0,0.5);
+    border-color: #60a5fa;
+}
+.return-image img {
+    width: 100%;
+    display: block;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    transition: 0.2s;
+}
+.return-text {
+    text-align: center;
+    max-width: 600px;
+}
+.return-text p {
+    color: #cbd5e1;
+    line-height: 1.85;
+    margin-bottom: 12px;
+}
+.return-badge {
+    display: inline-block;
+    background: rgba(96,165,250,0.2);
+    backdrop-filter: blur(4px);
+    padding: 6px 18px;
+    border-radius: 80px;
+    font-size: 0.8rem;
+    color: #93c5fd;
+    margin-top: 8px;
+}
+@media(max-width:980px){
+
+.hero-grid,
+.grid-2,
+.proto-card{
+    grid-template-columns:1fr;
+}
+
+.grid-3,
+.grid-4{
+    grid-template-columns:1fr;
+}
+
+.hero h1{
+    font-size:4rem;
+}
+
+.section-title{
+    font-size:2.3rem;
+}
+
+.floating-card .quote-text {
+    font-size: 1rem;
+}
+
+.floating-card {
+    margin-bottom: 120px;
+}
+
+.end-content h2{
+    font-size:3.4rem;
+}
+.return-image {
+    max-width: 100%;
+}
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<!-- Hero 区域 -->
+<section class="hero">
+<div class="hero-grid">
+<div>
+<div class="section-mini">CODE TO HARDWARE · FINAL PROTOTYPE</div>
+<h1>静音小卫</h1>
+<p>一个面向图书馆与自习空间的桌面噪音提醒装置。<br>通过实时声音检测与非侵入式LED反馈 + 按钮确认，让使用者在不尴尬的情况下意识到自己的噪音行为。</p>
+<div class="tag-wrap">
+<div class="tag">Arduino UNO</div>
+<div class="tag">MAX9814</div>
+<div class="tag">3D Printing</div>
+<div class="tag">Hackathon</div>
+</div>
+</div>
+<div class="hero-device">
+<div class="device-core"><i class="ri-mic-line"></i></div>
+<div class="device-info"><h3>Desktop Noise Reminder</h3><p>麦克风检测 · 红蓝LED反馈 · 按钮重置<br>完整峰值检测算法 · 防误触发机制</p></div>
+</div>
+</div>
+</section>
+
+<!-- 悬浮卡片 -->
+<div class="floating-card">
+    <h3>📢 我们的话：</h3>
+    <div class="quote-text">“真正的问题不是有人故意制造噪音，<br>而是很多人没有意识到自己正在打扰别人。”</div>
+    <div class="quote-author">Human-centered interaction design · 放过我们组</div>
+</div>
+
+<!-- WHY THIS PROJECT -->
+<section>
+<div class="section-mini">WHY THIS PROJECT</div>
+<h2 class="section-title">为什么需要它？</h2>
+<div class="grid-3">
+<div class="card problem-card"><i class="ri-alert-line"></i><h3>无意识噪音</h3><p>翻书声、拖椅子、耳机漏音、手机提示音，无意中打扰他人学习。</p></div>
+<div class="card problem-card"><i class="ri-user-unfollow-line"></i><h3>提醒尴尬</h3><p>拍肩膀、传纸条容易让人窘迫，导致大多数人选择忍耐。</p></div>
+<div class="card problem-card"><i class="ri-heart-line"></i><h3>更柔和的解决方式</h3><p>非侵入式即时反馈，让噪音制造者自己意识到问题，而不是被指责。</p></div>
+</div>
+</section>
+
+<!-- PROJECT PROFILE -->
+<section>
+<div class="section-mini">PROJECT PROFILE</div>
+<h2 class="section-title">项目简介</h2>
+<div class="grid-2">
+<div class="card problem-card"><h3>一句话定义</h3><p>静音小卫基于 Arduino + MAX9814，通过声音检测、红灯提醒、按钮确认及蓝灯反馈，帮助用户自觉降低噪音。</p><br><h3>目标场景</h3><p>图书馆、自习室、实验室、共享学习空间。</p><br><h3>核心价值</h3><p>非侵入式提醒，消除社交尴尬。</p></div>
+<div class="card problem-card">
+    <h3>团队成员</h3>
+    <p style="line-height: 2.2; margin-top: 8px;">
+        郭睿曦 · 项目协调 / 集成<br><br>
+        陈虹英 · 硬件与电路<br><br>
+        杨琦娇 · 程序与嵌入式<br><br>
+        唐慧彬 · 结构与制造<br><br>
+        付迪文 · 展示与测试 / HTML Log
+    </p>
+</div>
+</div>
+</section>
+
+<!-- 项目设计卡 -->
+<section>
+<div class="section-mini">DESIGN DOCUMENT</div>
+<h2 class="section-title">📄 项目设计卡</h2>
+<p class="section-desc">完整设计定义——基于黑客松设计卡提炼，包含用户场景、技术方案、风险与迭代方向。</p>
+<details class="doc-collapsible" id="projectDesignCard">
+    <summary><i class="ri-file-copy-line"></i> 📋 项目设计卡（点击展开/折叠 · 完整规格）</summary>
+    <div class="doc-content">
+        <table class="parts-table" style="width:100%">
+            <tbody><tr><th style="width:30%">小组名称</th><td>放过我们组</td></tr>
+            <tr><th>项目名称</th><td>静音小卫 —— 桌面噪音提醒装置</td></tr>
+            <tr><th>用户是谁</th><td>自习、备考的学生</td></tr>
+            <tr><th>使用场景</th><td>自习室、图书馆等安静学习环境</td></tr>
+            <tr><th>具体问题</th><td>无意噪音干扰他人，传统提醒方式尴尬不及时</td></tr>
+            <tr><th>HMW挑战</th><td>如何设计非侵入、不尴尬的物理装置，超标时即时提醒，帮助自觉保持安静</td></tr>
+            <tr><th>核心方案</th><td>麦克风传感器 + 红色LED + 按钮 + 蓝色LED + LCD显示屏(进阶)</td></tr>
+            <tr><th>MVP定义</th><td>能感知噪音并给出视觉反馈的桌面摆件</td></tr>
+            <tr><th>最大技术风险</th><td>阈值调试（备用手动触发模式）</td></tr>
+            <tr><th>未来迭代</th><td>蓝牙App统计 + 震动触感增强（后续版本）</td></tr>
+            </tbody>
+        </table>
+    </div>
+</details>
+</section>
+
+<!-- SYSTEM FLOW -->
+<section>
+<div class="section-mini">SYSTEM FLOW</div>
+<h2 class="section-title">系统工作流程</h2>
+<div class="grid-2">
+<div class="glass flow-card"><h3>完整闭环逻辑</h3><div class="flow-step"><div class="step-circle">1</div><div class="step-text">麦克风峰值采集（50ms窗口）</div></div><div class="flow-step"><div class="step-circle">2</div><div class="step-text">超过阈值 && 持续≥300ms ?</div></div><div class="flow-step"><div class="step-circle">3</div><div class="step-text">红灯亮，提示噪音超标</div></div><div class="flow-step"><div class="step-circle">4</div><div class="step-text">用户按下按钮 → 红灯灭,蓝灯亮5秒</div></div><div class="flow-step"><div class="step-circle">5</div><div class="step-text">蓝灯自动熄灭，系统待机</div></div></div>
+<div class="glass flow-card"><h3>硬件联动</h3><div class="flow-step"><div class="step-circle"><i class="ri-mic-line"></i></div><div class="step-text">MAX9814声音传感器（模拟输入）</div></div><div class="flow-step"><div class="step-circle"><i class="ri-cpu-line"></i></div><div class="step-text">Arduino 处理峰值/状态机</div></div><div class="flow-step"><div class="step-circle"><i class="ri-lightbulb-line"></i></div><div class="step-text">红色LED / 蓝色LED + 按钮确认</div></div></div>
+</div>
+</section>
+
+<!-- ========= DESIGN LOG 时间轴 ========= -->
+<section>
+<div class="section-mini">DESIGN LOG</div>
+<h2 class="section-title">设计日志 / 时间轴</h2>
+<div class="timeline">
+    <!-- 周六上午 -->
+    <div class="timeline-item"><div class="timeline-dot"></div><h3>周六上午 · Idea & MVP</h3><p>确定核心问题与最小可行产品（MVP）。最终优先保证“噪音→红灯→按钮→蓝灯”闭环。</p>
+    <details class="doc-collapsible" id="partsListDetails">
+        <summary><i class="ri-file-list-3-line"></i> 📋 元器件采购清单（点击展开/折叠）</summary>
+        <div class="doc-content"><table class="parts-table"><thead><tr><th colspan="2">🔧 核心电子器件</th></tr><tr><th>器材名称</th><th>规格 / 数量</th></tr></thead><tbody>
+        <tr><td>Arduino 开发板</td><td>Uno R3 / 1块</td></tr>
+        <tr><td>声音传感器模块</td><td>MAX9814，带模拟输出 / 1个</td></tr>
+        <tr><td>红色 LED</td><td>5mm 直插 / 1个</td></tr>
+        <tr><td>蓝色 LED</td><td>5mm 直插 / 1个</td></tr>
+        <tr><td>轻触按钮</td><td>6x6mm / 2个</td></tr>
+        <tr><td>电阻</td><td>220Ω / 若干</td></tr>
+        </tbody></table></div>
+    </details>
+    </div>
+
+    <!-- 周六下午 -->
+    <div class="timeline-item"><div class="timeline-dot"></div><h3>周六下午 · 电路与完整功能调试</h3><p>完成核心电路搭建，包括Arduino与MAX9814、红色LED、蓝色LED、按钮的接线；实现完整峰值检测逻辑，噪音超过阈值且持续时触发红灯，按钮重置蓝灯5秒后恢复。</p>
+    <div id="saturdayGallery" class="image-gallery" data-images='["images/周六下午1.jpg","images/周六下午2.jpg","images/周六下午3.jpg","images/3D建模.jpg"]' data-captions='["电路搭建：传感器+LED","峰值检测调试过程","电路集成测试","3D建模外壳适配"]'>
+        <div class="gallery-main">
+            <div class="gallery-arrow left" onclick="changeGalleryImage('saturdayGallery', -1)">‹</div>
+            <img class="gallery-main-img" id="saturdayGalleryImg" src="images/周六下午1.jpg" alt="main">
+            <div class="gallery-arrow right" onclick="changeGalleryImage('saturdayGallery', 1)">›</div>
+        </div>
+        <div class="thumbnail-scroll" id="saturdayGalleryThumbs"></div>
+        <div class="gallery-caption" id="saturdayGalleryCaption">电路搭建中</div>
+    </div>
+    <div class="media-video"><div class="video-label"><i class="ri-movie-2-line"></i> 第一次测试视频 · 核心闭环验证</div><video controls preload="metadata"><source src="video/第一次测试视频.mp4" type="video/mp4">您的浏览器不支持 video 标签。</video></div>
+    <div class="media-video"><div class="video-label"><i class="ri-cube-line"></i> 调整模型 · 3D打印结构优化</div><video controls preload="metadata"><source src="video/调整模型.mp4" type="video/mp4">您的浏览器不支持 video 标签。</video></div>
+    <div class="media-video"><div class="video-label"><i class="ri-vidicon-line"></i> ✅ 完成体演示视频 · 最终功能全览（红灯+按钮+蓝灯）</div><video controls preload="metadata"><source src="video/完成体演示视频.mp4" type="video/mp4">您的浏览器不支持 video 标签。<br>演示说明：拍手模拟噪音 → 红灯亮 → 按下按钮 → 蓝灯亮5秒 → 恢复待机。</video></div>
+    </div>
+
+    <!-- 周日上午 -->
+    <div class="timeline-item"><div class="timeline-dot"></div><h3>周日上午 · 结构封装与最终整合</h3><p>3D打印猫头鹰外壳组装，完成完整可演示原型。</p>
+        <div id="sundayGallery" class="image-gallery" data-images='["images/周日上午1.jpg","images/周日上午2.jpg"]' data-captions='["3D打印外壳 · 内部填充","3D打印外壳 · 进行组装"]'>
+            <div class="gallery-main">
+                <div class="gallery-arrow left" onclick="changeGalleryImage('sundayGallery', -1)">‹</div>
+                <img class="gallery-main-img" id="sundayGalleryImg" src="images/周日上午1.jpg" alt="main">
+                <div class="gallery-arrow right" onclick="changeGalleryImage('sundayGallery', 1)">›</div>
+            </div>
+            <div class="thumbnail-scroll" id="sundayGalleryThumbs"></div>
+            <div class="gallery-caption" id="sundayGalleryCaption">3D打印外壳展示</div>
+        </div>
+        <div class="media-video"><div class="video-label"><i class="ri-film-line"></i>封装</div><video controls preload="metadata"><source src="video/封装视频1.mp4" type="video/mp4">您的浏览器不支持 video 标签。</video></div>
+        <div class="media-video"><div class="video-label"><i class="ri-film-line"></i>点睛</div><video controls preload="metadata"><source src="video/封装视频2.mp4" type="video/mp4">您的浏览器不支持 video 标签。</video></div>
+    </div>
+</div>
+</section>
+
+<!-- PROTOTYPE EVOLUTION -->
+<section>
+<div class="section-mini">PROTOTYPE EVOLUTION</div>
+<h2 class="section-title">原型迭代</h2>
+<div class="proto-wrap">
+    <div class="proto-card glass">
+        <div id="stage01Gallery" class="image-gallery" style="padding: 12px; margin:0;" data-images='["images/stage01_1.jpg","images/stage01_2.jpg"]' data-captions='["最初概念草图","基础电路验证"]'>
+            <div class="gallery-main">
+                <div class="gallery-arrow left" onclick="changeGalleryImage('stage01Gallery', -1)">‹</div>
+                <img class="gallery-main-img" id="stage01GalleryImg" src="images/stage01_1.jpg" alt="main">
+                <div class="gallery-arrow right" onclick="changeGalleryImage('stage01Gallery', 1)">›</div>
+            </div>
+            <div class="thumbnail-scroll" id="stage01GalleryThumbs"></div>
+            <div class="gallery-caption" id="stage01GalleryCaption">最初概念</div>
+        </div>
+        <div class="proto-content"><div class="proto-tag">Stage 01</div><h3>最初概念</h3><p>非侵入式视觉提醒，48h精简为核心闭环（红灯+蓝灯+按钮）。</p></div>
+    </div>
+    <div class="proto-card glass">
+        <div class="proto-image">
+            <img src="images/封装成果.jpg" alt="封装成果" onerror="this.parentElement.innerHTML='🐱 3D打印外壳'; this.style.display='none'">
+        </div>
+        <div class="proto-content">
+            <div class="proto-tag">Stage 02</div>
+            <h3>结构封装</h3>
+            <p>香芋紫色猫头鹰灯罩，内部集成所有硬件，桌面美观且实用。</p>
+        </div>
+    </div>
+</div>
+</section>
+
+<!-- HARDWARE PROTOTYPE：两张图片位置 -->
+<section><div class="section-mini">HARDWARE PROTOTYPE</div><h2 class="section-title">硬件实物展示</h2><div class="grid-4">
+    <div class="demo-box">
+        <img src="images/实物展示1.jpg" alt="实物展示1" onerror="this.parentElement.innerHTML='实物展示1'; this.style.display='none'">
+    </div>
+    <div class="demo-box">
+        <img src="images/实物展示2.jpg" alt="实物展示2" onerror="this.parentElement.innerHTML='实物展示2'; this.style.display='none'">
+    </div>
+</div></section>
+
+<!-- TECH STACK & CODE 嵌入式代码 -->
+<section><div class="section-mini">TECH STACK & CODE</div><h2 class="section-title">嵌入式代码</h2><p class="section-desc">基于Arduino框架，实现峰值检测、噪音持续防误触发、红蓝LED报警及按钮复位。</p>
+<div class="code-box">
+<pre>
+<span class="code-comment">/*
+ * 噪音提醒装置（无震动版本）
+ * 功能：检测到噪音 → 红灯亮 → 按下按钮 → 蓝灯亮5秒 → 恢复
+ */</span>
+
+<span class="code-comment">// 引脚定义</span>
+<span class="code-keyword">const</span> <span class="code-type">int</span> MIC_PIN = <span class="code-number">A0</span>;          <span class="code-comment">// MAX9814 声音传感器</span>
+<span class="code-keyword">const</span> <span class="code-type">int</span> RED_LED = <span class="code-number">9</span>;           <span class="code-comment">// 红色 LED</span>
+<span class="code-keyword">const</span> <span class="code-type">int</span> BLUE_LED = <span class="code-number">10</span>;         <span class="code-comment">// 蓝色 LED</span>
+<span class="code-keyword">const</span> <span class="code-type">int</span> BUTTON_PIN = <span class="code-number">2</span>;        <span class="code-comment">// 按钮</span>
+
+<span class="code-comment">// 可调参数</span>
+<span class="code-type">int</span> SOUND_THRESHOLD = <span class="code-number">400</span>;       <span class="code-comment">// 声音阈值（安静300，拍手500）</span>
+<span class="code-keyword">const</span> <span class="code-type">int</span> NOISE_DURATION = <span class="code-number">300</span>;  <span class="code-comment">// 噪音需持续多少毫秒才触发</span>
+<span class="code-keyword">const</span> <span class="code-type">int</span> BLUE_HOLD = <span class="code-number">5000</span>;      <span class="code-comment">// 蓝灯亮多久后熄灭（毫秒）</span>
+
+<span class="code-comment">// 状态变量</span>
+<span class="code-type">bool</span> isRedOn = <span class="code-keyword">false</span>;
+<span class="code-type">bool</span> isBlueOn = <span class="code-keyword">false</span>;
+<span class="code-type">unsigned</span> <span class="code-type">long</span> noiseStartTime = <span class="code-number">0</span>;
+<span class="code-type">unsigned</span> <span class="code-type">long</span> blueStartTime = <span class="code-number">0</span>;
+
+<span class="code-type">void</span> <span class="code-function">setup</span>() {
+  pinMode(RED_LED, OUTPUT);
+  pinMode(BLUE_LED, OUTPUT);
+  pinMode(BUTTON_PIN, INPUT_PULLUP);
+  digitalWrite(RED_LED, LOW);
+  digitalWrite(BLUE_LED, LOW);
+  Serial.begin(<span class="code-number">9600</span>);
+  Serial.println(<span class="code-string">"系统就绪 - 拍手触发红灯，按按钮蓝灯5秒"</span>);
+}
+
+<span class="code-type">void</span> <span class="code-function">loop</span>() {
+  <span class="code-comment">// 1. 峰值检测（50ms窗口）</span>
+  <span class="code-type">unsigned</span> <span class="code-type">long</span> start = millis();
+  <span class="code-type">int</span> maxVal = <span class="code-number">0</span>;
+  <span class="code-keyword">while</span> (millis() - start < <span class="code-number">50</span>) {
+    <span class="code-type">int</span> val = analogRead(MIC_PIN);
+    <span class="code-keyword">if</span> (val > maxVal) maxVal = val;
+  }
+  Serial.println(maxVal);
+
+  <span class="code-type">bool</span> buttonPressed = (digitalRead(BUTTON_PIN) == LOW);
+
+  <span class="code-comment">// 2. 噪音检测（仅当红灯和蓝灯都未亮时）</span>
+  <span class="code-keyword">if</span> (!isRedOn && !isBlueOn) {
+    <span class="code-keyword">if</span> (maxVal > SOUND_THRESHOLD) {
+      <span class="code-keyword">if</span> (noiseStartTime == <span class="code-number">0</span>) {
+        noiseStartTime = millis();
+      } <span class="code-keyword">else</span> <span class="code-keyword">if</span> (millis() - noiseStartTime >= NOISE_DURATION) {
+        digitalWrite(RED_LED, HIGH);
+        isRedOn = <span class="code-keyword">true</span>;
+        noiseStartTime = <span class="code-number">0</span>;
+        Serial.println(<span class="code-string">"触发！红灯亮"</span>);
+      }
+    } <span class="code-keyword">else</span> {
+      noiseStartTime = <span class="code-number">0</span>;
+    }
+  }
+
+  <span class="code-comment">// 3. 按钮按下：关闭红灯，开启蓝灯</span>
+  <span class="code-keyword">if</span> (isRedOn && buttonPressed) {
+    digitalWrite(RED_LED, LOW);
+    isRedOn = <span class="code-keyword">false</span>;
+    digitalWrite(BLUE_LED, HIGH);
+    isBlueOn = <span class="code-keyword">true</span>;
+    blueStartTime = millis();
+    Serial.println(<span class="code-string">"按钮按下！红灯灭，蓝灯亮"</span>);
+    delay(<span class="code-number">50</span>);
+    <span class="code-keyword">while</span> (digitalRead(BUTTON_PIN) == LOW) delay(<span class="code-number">10</span>);
+  }
+
+  <span class="code-comment">// 4. 蓝灯自动熄灭</span>
+  <span class="code-keyword">if</span> (isBlueOn && (millis() - blueStartTime >= BLUE_HOLD)) {
+    digitalWrite(BLUE_LED, LOW);
+    isBlueOn = <span class="code-keyword">false</span>;
+    Serial.println(<span class="code-string">"蓝灯熄灭，系统恢复"</span>);
+  }
+}
+</pre>
+</div>
+</section>
+
+<!-- REFLECTIONS -->
+<section><div class="section-mini">REFLECTIONS</div><h2 class="section-title">问题与反思</h2><div class="grid-2"><div class="card reflection"><h3>主要挑战</h3><ol style="margin-left: 20px; color:#cbd5e1; line-height:1.8;"><li>阈值灵敏度和环境噪声冲突</li><li>3D打印公差导致按键卡涩</li><li>时间有限，震动模块未在本次实现（后续迭代加入）</li></ol></div><div class="card reflection"><h3>解决方案</h3><p>增加峰值检测+持续时间滤波；打磨外壳孔位；保留核心红蓝LED闭环，确保演示稳定。未来版本将增加震动和蓝牙统计功能。</p></div></div></section>
+
+<!-- ========= 新增板块：耗材归还 (配图一张，名称“耗材归还”) ========= -->
+<section>
+    <div class="section-mini">MATERIAL RETURN</div>
+    <h2 class="section-title">耗材归还</h2>
+    <div class="card return-card">
+        <div class="return-image">
+            <img src="images/耗材归还.jpg" alt="耗材归还" onerror="this.style.opacity='0.6'; this.parentElement.style.background='#0f172a'; this.src='data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22%2360a5fa%22%3E%3Cpath%20d%3D%22M12%202C6.48%202%202%206.48%202%2012s4.48%2010%2010%2010%2010-4.48%2010-10S17.52%202%2012%202zm1%2015h-2v-2h2v2zm0-4h-2V7h2v6z%22%2F%3E%3C%2Fsvg%3E'; this.alt='耗材归还占位图标';">
+        </div>
+        <div class="return-text">
+            <p>🔧 所有借用耗材均已清点归还。<br>            <div class="return-badge"><i class="ri-checkbox-circle-line"></i> 归还状态：✅ 已确认 · 2026.06.05</div>
+            <p style="font-size:0.85rem; margin-top: 16px;">感谢硬件仓库支持，让可持续的创造成为可能。</p>
+        </div>
+    </div>
+</section>
+
+<!-- END PAGE & FOOTER -->
+<section class="end-page"><div class="end-content"><div class="section-mini">END PAGE</div><h2>让提醒变得更温柔</h2><p>这个项目并不复杂。<br>但我们希望，它能让人与人之间的提醒少一点尴尬，多一点理解。</p><a href="#" class="end-button"><i class="ri-arrow-up-line"></i>返回顶部</a></div></section>
+<div class="footer"><p>静音小卫 · 完整硬件实现 | Arduino UNO + MAX9814 + 红蓝LED + 3D外壳</p><p>Hackathon 2026 · 放过我们组</p></div>
+</div>
+
+<script>
+function fixDetailsToggle() {
+    const detailsList = document.querySelectorAll('.doc-collapsible');
+    detailsList.forEach(details => {
+        const summary = details.querySelector('summary');
+        if(!summary) return;
+        summary.style.cursor = 'pointer';
+        summary.addEventListener('click', (e) => {
+            e.preventDefault();
+            const isOpen = details.hasAttribute('open');
+            if(isOpen) details.removeAttribute('open');
+            else details.setAttribute('open', 'true');
+        });
+    });
+}
+
+function initGallery(galleryId) {
+    const container = document.getElementById(galleryId);
+    if(!container) return;
+    const images = JSON.parse(container.getAttribute('data-images'));
+    const captions = JSON.parse(container.getAttribute('data-captions'));
+    let currentIndex = 0;
+    const mainImg = document.getElementById(galleryId + 'Img');
+    const thumbsContainer = document.getElementById(galleryId + 'Thumbs');
+    const captionSpan = document.getElementById(galleryId + 'Caption');
+    function renderThumbs() {
+        thumbsContainer.innerHTML = '';
+        images.forEach((src, idx) => {
+            const thumb = document.createElement('img');
+            thumb.src = src;
+            thumb.classList.add('thumbnail');
+            if(idx === currentIndex) thumb.classList.add('active');
+            thumb.addEventListener('click', () => { currentIndex = idx; updateMain(); renderThumbs(); });
+            thumbsContainer.appendChild(thumb);
+        });
+    }
+    function updateMain() {
+        mainImg.src = images[currentIndex];
+        captionSpan.innerText = captions[currentIndex] || '';
+        renderThumbs();
+    }
+    window['changeGalleryImage_' + galleryId] = function(delta) {
+        let newIdx = currentIndex + delta;
+        if(newIdx < 0) newIdx = images.length - 1;
+        if(newIdx >= images.length) newIdx = 0;
+        currentIndex = newIdx;
+        updateMain();
+    };
+    if(!window.changeGalleryImage) {
+        window.changeGalleryImage = function(gid, delta) { const fn = window['changeGalleryImage_' + gid]; if(fn) fn(delta); };
+    }
+    renderThumbs();
+    updateMain();
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    fixDetailsToggle();
+    if(document.getElementById('saturdayGallery')) initGallery('saturdayGallery');
+    if(document.getElementById('stage01Gallery')) initGallery('stage01Gallery');
+    if(document.getElementById('sundayGallery')) initGallery('sundayGallery');
+});
+</script>
+</body>
+</html>
